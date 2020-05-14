@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import net.rithms.riot.api.ApiConfig;
 import net.rithms.riot.api.RiotApi;
 import net.rithms.riot.api.RiotApiException;
+import net.rithms.riot.api.endpoints.spectator.dto.CurrentGameInfo;
 import net.rithms.riot.api.endpoints.summoner.dto.Summoner;
 import net.rithms.riot.constant.Platform;
 
@@ -34,5 +35,12 @@ public class Example {
 
 		System.out.println("Name: " + summoner.getName());
 		System.out.println("Level: " + summoner.getSummonerLevel());
+		try {
+			CurrentGameInfo ingame = api.getActiveGameBySummoner(Platform.EUNE, summoner.getId());
+			System.out.println("In-game: " +ingame.getGameMode());
+			System.out.println("(" + ingame.getGameType() + ")");
+		} catch (Exception e){
+			System.out.println("Summoner is not in a game");
+		}
 	}
 }
